@@ -1,6 +1,6 @@
 import React from 'react';
 import { Paper, BottomNavigation, BottomNavigationAction, Container } from "@mui/material";
-import { Restore as RestoreIcon, Favorite as FavoriteIcon, Archive as ArchiveIcon } from "@mui/icons-material";
+import { LineAxis as LineAxisIcon, History as HistoryIcon, StickyNote2 as StickyNote2Icon } from "@mui/icons-material";
 
 const BottomNav = () => {
     const [value, setValue] = React.useState(0);
@@ -14,9 +14,9 @@ const BottomNav = () => {
                         setValue(newValue);
                     }}
                     >
-                    <BottomNavigationAction label="Recents" icon={<RestoreIcon />} />
-                    <BottomNavigationAction label="Favorites" icon={<FavoriteIcon />} />
-                    <BottomNavigationAction label="Archive" icon={<ArchiveIcon />} />
+                    <BottomNavigationAction label="Home" icon={<LineAxisIcon />} />
+                    <BottomNavigationAction label="History" icon={<HistoryIcon />} />
+                    <BottomNavigationAction label="Planning" icon={<StickyNote2Icon />} />
                 </BottomNavigation>
             </Paper>
         </Container>
