@@ -1,14 +1,21 @@
 import React from 'react';
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 
-import { Typography } from "@mui/material";
+import Layout from './Layout/Layout';
+import History from './History';
+import Dashboard from './Dashboard';
+import Planning from './Planning';
 
 import './App.css';
-import Layout from './Layout/Layout';
 
 function App() {
   return (
     <Layout>
-      <Typography component="p">First Page</Typography>
+      <Routes>
+        <Route path="/" element={<Dashboard />} />
+        <Route path="/history" element={<History />} />
+        <Route path="/plan" element={<Planning />} />
+      </Routes>
     </Layout>
   );
 }
