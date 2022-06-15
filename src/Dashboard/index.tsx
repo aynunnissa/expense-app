@@ -50,14 +50,14 @@ const Dashboard = () => {
                     <Typography variant="subtitle2" component="h3">Last Month</Typography>
                     <Typography variant="subtitle2" component="h3">This Month</Typography>
                 </Box>
-                <Paper sx={{ backgroundColor: "#E5E5E5", padding: "20px", borderRadius: "20px" }}>
+                <Paper sx={{ backgroundColor: "#FFFFFF", padding: "20px", borderRadius: "20px" }}>
                     <Typography variant="subtitle1" component="p" fontWeight={600} color="secondary">Net Income</Typography>
                     <Typography variant="body1" component="p" fontWeight={700}>Rp1.000.000,00</Typography>
                     <ReportChart data={data} />
                 </Paper>
             </Box>
             <Box>
-                <Paper sx={{ borderRadius: "50px 50px 0px 0px", padding: "30px 20px 100px 20px" }}>
+                <Paper sx={{ borderRadius: "50px 50px 0px 0px", padding: "30px 20px 100px 20px", backgroundColor: "#FFFFFF" }}>
                     <Typography component="h2" variant="h5" fontWeight={700}>Transaction</Typography>
                     
                 </Paper>
