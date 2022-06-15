@@ -16,8 +16,8 @@ const ReportChart = ({ data }: IProps) => {
                 <YAxis width={25} />
                 <Tooltip />
                 <Legend />
-                <Bar dataKey="expense" fill="red" barSize={12} radius={[5, 5, 0, 0]} />
-                <Bar dataKey="income" fill="green" barSize={12} radius={[5, 5, 0, 0]} />
+                <Bar dataKey="expense" fill="#BB665F" barSize={12} radius={[5, 5, 0, 0]} />
+                <Bar dataKey="income" fill="#080A1E" barSize={12} radius={[5, 5, 0, 0]} />
             </BarChart>
         </ResponsiveContainer>
     );

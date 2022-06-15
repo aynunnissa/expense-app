@@ -30,8 +30,8 @@ const BottomNav = () => {
     }, [path, navValue]);
 
     return(
-        <Container maxWidth="sm" sx={{ position: 'fixed', bottom: "20px", left: 0, right: 0, display: "flex", justifyContent: "center" }}>
-            <Paper elevation={4} sx={{ borderRadius: "20px", width: "95%" }}>
+        <Container maxWidth="sm" sx={{ position: 'fixed', bottom: 0, left: 0, right: 0 }}>
+            <Paper elevation={4} sx={{ borderRadius: "20px 20px 0px 0px" }}>
                 <BottomNavigation
                     showLabels
                     value={value}
@@ -39,20 +39,14 @@ const BottomNav = () => {
                         setValue(newValue);
                         console.log(newValue);
                     }}
-                    sx={{ borderRadius: "20px", backgroundColor: "#1F2169" }}
+                    sx={{ borderRadius: "20px 20px 0px 0px" }}
                     >
-                    <BottomNavigationAction sx={{ color: "white" }} onClick={() => changeUrlHandler("")} label="Home" icon={<LineAxisIcon />} />
-                    <Box sx={{ backgroundColor: "#FFFFFF", width: "80px", height: "80px", borderRadius: "40px", bottom: "20px", position: "absolute"}} />
-                    <Paper elevation={5} sx={{ backgroundColor: "#1F2169", color: "white", width: "60px", height: "60px", borderRadius: "30px", bottom: "30px", position: "absolute", display: "flex", alignItems: "center", justifyContent: "center"}}>
+                    <BottomNavigationAction onClick={() => changeUrlHandler("")} label="Home" icon={<LineAxisIcon />} />
+                    <Paper elevation={5} sx={{ backgroundColor: "#080A1E", color: "#FFFFFF", width: "70px", height: "70px", borderRadius: "35px", bottom: "20px", position: "absolute", display: "flex", alignItems: "center", justifyContent: "center"}}>
                         <AddIcon />
                     </Paper>
                     <BottomNavigationAction />
-                    {/* <BottomNavigationAction 
-                        onClick={() => changeUrlHandler("/plan")} 
-                        icon={<AddIcon sx={{ color: "red", backgroundColor: "yellow", padding: "20px" }} />} 
-                        sx={{ zIndex: 2, backgroundColor: "pink" }}
-                    /> */}
-                    <BottomNavigationAction sx={{ color: "white" }} onClick={() => changeUrlHandler("/history")} label="History" icon={<HistoryIcon />} />
+                    <BottomNavigationAction onClick={() => changeUrlHandler("/history")} label="History" icon={<HistoryIcon />} />
                 </BottomNavigation>
             </Paper>
         </Container>

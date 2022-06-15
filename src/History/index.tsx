@@ -52,13 +52,11 @@ const History = () => {
                     </Paper>
                 </Box>
             </Box>
-            <Box mt={4}>
-                <Paper sx={{ borderRadius: "50px 50px 0px 0px", padding: "30px 20px 100px 20px" }}>
-                    <Typography component="h2" variant="h5" fontWeight={700}>Transaction</Typography>
-                    <HistoryItem />
-                    <HistoryItem />
-                    <HistoryItem />
-                </Paper>
+            <Box sx={{ padding: "30px 20px 100px 20px" }}>
+                <Typography component="h2" variant="h5" fontWeight={700}>Transaction</Typography> 
+                <HistoryItem />
+                <HistoryItem />
+                <HistoryItem />
             </Box>
         </>
     );

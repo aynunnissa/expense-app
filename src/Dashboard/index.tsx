@@ -56,11 +56,8 @@ const Dashboard = () => {
                     <ReportChart data={data} />
                 </Paper>
             </Box>
-            <Box>
-                <Paper sx={{ borderRadius: "50px 50px 0px 0px", padding: "30px 20px 100px 20px", backgroundColor: "#FFFFFF" }}>
-                    <Typography component="h2" variant="h5" fontWeight={700}>Transaction</Typography>
-                    
-                </Paper>
+            <Box sx={{ padding: "30px 20px 100px 20px" }}>
+                <Typography component="h2" variant="h5" fontWeight={700}>Transaction</Typography> 
             </Box>
         </>
     );

@@ -12,7 +12,7 @@ const Layout = (props: Props) => {
         <>
             <CssBaseline />
             <Container maxWidth="sm" sx={{ position: "relative"}}>
-                <Box sx={{ bgcolor: '#DEECF8' }}>
+                <Box sx={{ bgcolor: '#F0F1F5' }}>
                     {props.children}
                 </Box>
                 <BottomNav />
