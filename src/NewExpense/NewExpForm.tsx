@@ -12,22 +12,22 @@ import DryCleaningIcon from '@mui/icons-material/DryCleaning';
 
 const CATEGORIES = [
     {
-        value: "0",
+        value: 0,
         label: "Transportation",
         icon: <DirectionsBusFilledIcon />
     },
     {
-        value: "1",
+        value: 1,
         label: "Snack",
         icon: <FastfoodIcon />
     },
     {
-        value: "2",
+        value: 2,
         label: "Grocery",
         icon: <LocalGroceryStoreIcon />
     },
     {
-        value: "3",
+        value: 3,
         label: "Clothes",
         icon: <DryCleaningIcon />
     },
@@ -65,18 +65,18 @@ interface CustomProps {
 
 export default function NewExpForm() {
 
-    const [category, setCategory] = React.useState('0');
-    const [price, setPrice] = React.useState('0');
+    const [category, setCategory] = React.useState<number>(0);
+    const [price, setPrice] = React.useState<number>(0);
     const [description, setDescription] = React.useState('');
 
     const navigate = useNavigate();
 
     const categoryChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setCategory(event.target.value as string);
+        setCategory(Number(event.target.value));
     }
 
     const priceChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setPrice(event.target.value as string);
+        setPrice(Number(event.target.value));
     }
 
     const descriptionChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
