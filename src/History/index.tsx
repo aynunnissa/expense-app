@@ -1,19 +1,37 @@
-import { Box, Typography, Paper, Grid } from "@mui/material";
+import { useSelector, shallowEqual } from "react-redux";
+import { Box, Typography, Paper } from "@mui/material";
 import { Notifications, ArrowDownward, ArrowUpward } from "@mui/icons-material";
+
+type Props = {
+    exp: IExpense
+}
+
+interface ICategories {
+    [key: number]: string;
+}
+
+const categories: ICategories = {
+    0: "Transportation",
+    1: "Snack",
+    2: "Grocery",
+    3: "Clothes"
+}
 
 const History = () => {
 
-    const HistoryItem = () => {
+    const expenses: readonly IExpense[] = useSelector((state: ExpenseState) => state.expenses, shallowEqual);
+
+    const HistoryItem = ({ exp }: Props) => {
         return(
             <Box mt={2} sx={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                 <Box sx={{ display: "flex",  alignItems: "center" }}>
                     <Notifications />
                     <Box>
-                        <Typography component="p" fontWeight={500}>Donation</Typography>
-                        <Typography component="p" fontWeight={500} color="secondary">4 April 2022</Typography>
+                        <Typography component="p" fontWeight={500}>{categories[exp.category]}</Typography>
+                        <Typography component="p" fontWeight={500} color="secondary">{exp.date}</Typography>
                     </Box>
                 </Box>
-                <Typography component="p" fontWeight={500} sx={{ color: "red"}}>- 20.000</Typography>
+                <Typography component="p" fontWeight={500} sx={{ color: "red"}}>{exp.price.toLocaleString()}</Typography>
             </Box>
         );
     }
@@ -54,9 +72,12 @@ const History = () => {
             </Box>
             <Box sx={{ padding: "30px 20px 100px 20px" }}>
                 <Typography component="h2" variant="h5" fontWeight={700}>Transaction</Typography> 
-                <HistoryItem />
-                <HistoryItem />
-                <HistoryItem />
+                {expenses.map((exp: IExpense) => (
+                    <HistoryItem 
+                        key={exp.id}
+                        exp={exp}
+                    />
+                ))}
             </Box>
         </>
     );

@@ -1,6 +1,7 @@
 import React from 'react';
 import NumberFormat, { InputAttributes } from 'react-number-format';
 import { useNavigate } from "react-router-dom";
+import moment, { Moment } from 'moment';
 
 import { Box, TextField, MenuItem, Stack, Button, Grid } from "@mui/material";
 
@@ -68,6 +69,7 @@ export default function NewExpForm() {
     const [category, setCategory] = React.useState<number>(0);
     const [price, setPrice] = React.useState<number>(0);
     const [description, setDescription] = React.useState('');
+    const [date, setDate] = React.useState(moment().format("YYYY-MM-DD"));
 
     const navigate = useNavigate();
 
@@ -81,6 +83,10 @@ export default function NewExpForm() {
 
     const descriptionChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
         setDescription(event.target.value as string);
+    }
+
+    const dateChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
+      setDate(event.target.value);
     }
 
     const submitFormHandler = () => {
@@ -99,6 +105,14 @@ export default function NewExpForm() {
       p={4}
     >
       <Stack spacing={2}>
+        <TextField 
+          fullWidth
+          required
+          label="Date"
+          type="date"
+          value={date}
+          onChange={dateChangeHandler}
+        />
         <TextField
           fullWidth
           required

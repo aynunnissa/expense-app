@@ -4,6 +4,14 @@ import { BrowserRouter } from "react-router-dom";
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { applyMiddleware, Store, createStore } from "redux";
+import reducer from './store/reducer';
+import thunk from 'redux-thunk';
+import { Provider } from 'react-redux';
+
+const store: Store<ExpenseState, ExpenseAction> & {
+  dispatch: DispatchType
+} = createStore(reducer, applyMiddleware(thunk));
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -11,7 +19,9 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <BrowserRouter>
-      <App />
+      <Provider store={store}>
+        <App />
+      </Provider>
     </BrowserRouter>
   </React.StrictMode>
 );
