@@ -1,10 +1,10 @@
-import React from 'react';
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 
 import Layout from './Layout/Layout';
+import Home from './Home';
 import History from './History';
 import Dashboard from './Dashboard';
-import Planning from './Planning';
+import Profile from './Profile';
 import NewExp from './NewExpense';
 
 import './App.css';
@@ -13,10 +13,11 @@ function App() {
   return (
     <Layout>
       <Routes>
-        <Route path="/" element={<Dashboard />} />
+        <Route path="/" element={<Home />} />
         <Route path="/history" element={<History />} />
-        <Route path="/plan" element={<Planning />} />
-        <Route path="/newExpense" element={<NewExp />} />
+        <Route path="/statistic" element={<Dashboard />} />
+        <Route path="/new" element={<NewExp />} />
+        <Route path="/profile" element={<Profile />} />
       </Routes>
     </Layout>
   );
