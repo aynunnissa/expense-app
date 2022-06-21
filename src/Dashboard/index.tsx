@@ -94,16 +94,16 @@ const Dashboard = () => {
                     justifyContent="space-around"
                   >
                     <Box>
-                      <Typography variant="subtitle2" component="p" color="#949BB7" textAlign='center'>Income</Typography>
-                      <Typography variant="body1" component="p" fontWeight={600} textAlign='center'>Rp500,000</Typography>
-                      <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+                      <Typography variant="subtitle2" component="p" color="#1F2169" textAlign='center'>Income</Typography>
+                      <Typography variant="body1" component="p" fontWeight={600} textAlign='center' color='#67A0AB'>Rp500,000</Typography>
+                      <Box sx={{ display: 'flex', justifyContent: 'center' }} mt={1}>
                         <OverallChart />
                       </Box>
                     </Box>
                     <Box>
-                      <Typography variant="subtitle2" component="p" color="#949BB7" textAlign='center'>Expense</Typography>
-                      <Typography variant="body1" component="p" fontWeight={600} textAlign='center'>Rp500,000</Typography>
-                      <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+                      <Typography variant="subtitle2" component="p" color="#1F2169" textAlign='center'>Expense</Typography>
+                      <Typography variant="body1" component="p" fontWeight={600} textAlign='center' color='#F54740'>Rp500,000</Typography>
+                      <Box sx={{ display: 'flex', justifyContent: 'center' }} mt={1}>
                         <OverallChart />
                       </Box>
                     </Box>

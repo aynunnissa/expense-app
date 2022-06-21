@@ -164,13 +164,13 @@ export default function NewExpForm() {
         />
       </Stack>
       <Grid container spacing={2} mt={2}>
-          <Grid item xs={6}>
-            <Button sx={{ width:'100%' }} variant='outlined' onClick={() => navigateHandler('/')}>Cancel</Button>
-          </Grid>
-          <Grid item xs={6}>
-            <Button sx={{ width:'100%' }} variant='contained' onClick={submitFormHandler}>Add Expense</Button>
-          </Grid>
+        <Grid item xs={12} sm={6} order={{ xs: 1, sm: 2}}>
+          <Button sx={{ width:'100%' }} variant='contained' onClick={submitFormHandler}>Add Expense</Button>
         </Grid>
+        <Grid item xs={12} sm={6} order={{ xs: 2, sm: 1}}>
+          <Button sx={{ width:'100%' }} variant='outlined' onClick={() => navigateHandler('/')}>Cancel</Button>
+        </Grid>
+      </Grid>
     </Box>
     );
 }

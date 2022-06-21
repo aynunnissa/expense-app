@@ -38,7 +38,7 @@ const Home = () => {
                 <Grid item xs={6}>
                     <Card>
                         <ArrowDownwardIcon sx={{ backgroundColor: '#F54740', borderRadius: '50%', padding: '5px', color: 'white' }} />
-                        <Typography variant="subtitle2" component="p" color="#949BB7">Income</Typography>
+                        <Typography variant="subtitle2" component="p" color="#949BB7">Expense</Typography>
                         <Typography variant="body1" component="p" fontWeight={600}>Rp500,000</Typography>
                     </Card>
                 </Grid>
