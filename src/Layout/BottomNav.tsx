@@ -42,7 +42,7 @@ const BottomNav = () => {
                     sx={{ borderRadius: "20px 20px 0px 0px" }}
                     >
                     <BottomNavigationAction onClick={() => changeUrlHandler("")} label="Home" icon={<LineAxisIcon />} />
-                    <Paper elevation={5} onClick={() => changeUrlHandler("/newExpense")} sx={{ backgroundColor: "#1F2169", color: "#FFFFFF", width: "70px", height: "70px", borderRadius: "35px", bottom: "20px", position: "absolute", display: "flex", alignItems: "center", justifyContent: "center", cursor: "pointer"}}>
+                    <Paper elevation={5} onClick={() => changeUrlHandler("/new")} sx={{ backgroundColor: "#1F2169", color: "#FFFFFF", width: "70px", height: "70px", borderRadius: "35px", bottom: "20px", position: "absolute", display: "flex", alignItems: "center", justifyContent: "center", cursor: "pointer"}}>
                         <AddIcon />
                     </Paper>
                     <BottomNavigationAction />

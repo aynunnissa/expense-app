@@ -102,9 +102,21 @@ export default function NewExpForm() {
       component="form"
       noValidate
       autoComplete="off"
-      p={4}
     >
       <Stack spacing={2}>
+        <TextField
+          fullWidth
+          required
+          id="outlined-select-currency"
+          select
+          label="Report Category"
+          value={0}
+          onChange={categoryChangeHandler}
+          helperText="Please select your report category"
+        >
+          <MenuItem key="income-0" value={0}>Income</MenuItem>
+          <MenuItem key="income-0" value={1}>Expense</MenuItem>
+        </TextField>
         <TextField 
           fullWidth
           required

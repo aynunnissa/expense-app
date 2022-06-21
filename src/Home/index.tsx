@@ -1,6 +1,5 @@
 import { useSelector, shallowEqual } from "react-redux";
 import { Typography, Grid, Avatar, Box, Stack } from "@mui/material";
-import { createTheme, responsiveFontSizes, ThemeProvider } from "@mui/material/styles";
 import Card from "../UI/Card";
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
@@ -9,13 +8,10 @@ import HistoryItem from "../History/HistoryItem";
 
 const Home = () => {
 
-    let theme = createTheme();
-    theme = responsiveFontSizes(theme);
-
     const expenses: readonly IExpense[] = useSelector((state: ExpenseState) => state.expenses, shallowEqual);
 
     return(
-        <ThemeProvider theme={theme}>
+        <>
             <Grid container justifyContent="center" p={4} spacing={2}>
                 <Grid item xs={12}>
                     <Box display="flex" alignItems="center" gap={1}>
@@ -58,7 +54,7 @@ const Home = () => {
                     </>
                 </Grid>
             </Grid>
-        </ThemeProvider>
+        </>
     );
 }
 
