@@ -4,7 +4,6 @@ import Layout from './Layout/Layout';
 import Home from './Home';
 import History from './History';
 import Dashboard from './Dashboard';
-import Profile from './Profile';
 import NewExp from './NewExpense';
 
 import './App.css';
@@ -17,7 +16,6 @@ function App() {
         <Route path="/history" element={<History />} />
         <Route path="/statistic" element={<Dashboard />} />
         <Route path="/new" element={<NewExp />} />
-        <Route path="/profile" element={<Profile />} />
       </Routes>
     </Layout>
   );

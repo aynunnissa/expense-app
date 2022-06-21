@@ -2,6 +2,8 @@ import React, { useEffect } from 'react';
 import { Paper, BottomNavigation, BottomNavigationAction, Container, Box } from "@mui/material";
 import { LineAxis as LineAxisIcon, History as HistoryIcon, StickyNote2 as StickyNote2Icon, Add as AddIcon, Home as HomeIcon, Person as PersonIcon } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { styled } from "@mui/material/styles";
 
 interface Nav {
     [key: string]: number;
@@ -15,6 +17,30 @@ const navValue: Nav = {
 };
 
 const BottomNav = () => {
+
+    const theme = createTheme();
+
+    const AddPaper = styled(Paper)(() => ({
+        width: '70px',
+        height: '70px',
+        borderRadius: '35px',
+        backgroundColor: "#1F2169",
+        color: "#FFFFFF",
+        bottom: "20px",
+        right: "10%",
+        position: "absolute",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        cursor: "pointer",
+        
+        [theme.breakpoints.down('sm')]: {
+            width: '50px',
+            height: '50px',
+            borderRadius: '25px',
+            bottom: "30px"
+        },
+    }))    
 
     const navigate = useNavigate();
 
@@ -31,7 +57,7 @@ const BottomNav = () => {
     }, [path]);
 
     return(
-        <Container maxWidth="sm" sx={{ position: 'fixed', bottom: 0, left: 0, right: 0 }}>
+        <Container maxWidth="sm" sx={{ position: 'fixed', bottom: 0, left: 0, right: 0, padding: 0 }}>
             <Paper elevation={1} sx={{ borderRadius: "30px 30px 0px 0px", padding: '5px 0px' }}>
                 <BottomNavigation
                     showLabels
@@ -44,12 +70,11 @@ const BottomNav = () => {
                     >
                     <BottomNavigationAction onClick={() => changeUrlHandler("")} label="Home" icon={<HomeIcon />} />
                     <BottomNavigationAction onClick={() => changeUrlHandler("/statistic")} label="Statistics" icon={<LineAxisIcon />} />
-                    <Paper elevation={5} onClick={() => changeUrlHandler("/new")} sx={{ backgroundColor: "#1F2169", color: "#FFFFFF", width: "70px", height: "70px", borderRadius: "35px", bottom: "20px", position: "absolute", display: "flex", alignItems: "center", justifyContent: "center", cursor: "pointer"}}>
-                        <AddIcon />
-                    </Paper>
-                    <BottomNavigationAction disabled />
                     <BottomNavigationAction onClick={() => changeUrlHandler("/history")} label="History" icon={<HistoryIcon />} />
-                    <BottomNavigationAction onClick={() => changeUrlHandler("/profile")} label="Profile" icon={<PersonIcon />} />
+                    <BottomNavigationAction disabled />
+                    <AddPaper elevation={5} onClick={() => changeUrlHandler("/new")}>
+                        <AddIcon />
+                    </AddPaper>
                 </BottomNavigation>
             </Paper>
         </Container>
