@@ -58,7 +58,7 @@ const Dashboard = () => {
 
   return (
         <>
-          <Box sx={{ backgroundColor: "#1F2169" }} minHeight="100vh">
+          <Box sx={{ backgroundColor: "#1F2169" }}>
             <Grid container spacing={2} justifyContent="center" py={4}>
               <Grid item xs={11}>
                 <Stack direction="row" alignItems="center" justifyContent="space-between">
@@ -80,13 +80,34 @@ const Dashboard = () => {
                   </FormControl>
                 </Stack>
               </Grid>
-              <Grid item xs={11}>
+              <Grid item xs={11} sx={{ overflowX: 'auto', overflowY: 'hidden' }}>
                 <DailyChart />
               </Grid>
             </Grid>
             <Box sx={{ backgroundColor: "#F2F2FD", borderRadius: "30px 30px 0px 0px" }}>
-              <Grid container spacing={2} justifyContent="center" pt={2} pb={4}>
-                <Grid item xs={11}>
+              <Grid container spacing={2} justifyContent="center" pt={2} pb={4} columns={21}>
+                <Grid item sm={10} xs={21}>
+                  <Box>
+                    <Typography variant="subtitle2" component="p" color="#1F2169" textAlign='center'>Income</Typography>
+                    <Typography variant="body1" component="p" fontWeight={600} textAlign='center' color='#67A0AB'>Rp500,000</Typography>
+                    <Box sx={{ display: 'flex', justifyContent: 'center' }} mt={1}>
+                      <OverallChart />
+                    </Box>
+                  </Box>
+                </Grid>
+                <Grid item sm={1} xs={0}>
+                  <Divider orientation="vertical" variant="middle" sx={{ height: '100%' }}  flexItem />
+                </Grid>
+                <Grid item sm={10} xs={21}>
+                  <Box>
+                    <Typography variant="subtitle2" component="p" color="#1F2169" textAlign='center'>Expense</Typography>
+                    <Typography variant="body1" component="p" fontWeight={600} textAlign='center' color='#F54740'>Rp500,000</Typography>
+                    <Box sx={{ display: 'flex', justifyContent: 'center' }} mt={1}>
+                      <OverallChart />
+                    </Box>
+                  </Box>
+                </Grid>
+                {/* <Grid item xs={11}>
                   <Stack
                     direction="row"
                     divider={<Divider orientation="vertical" flexItem />}
@@ -108,7 +129,7 @@ const Dashboard = () => {
                       </Box>
                     </Box>
                   </Stack>
-                </Grid>
+                </Grid> */}
               </Grid>
             </Box>
           </Box>

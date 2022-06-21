@@ -60,13 +60,12 @@ const BottomNav = () => {
         <Container maxWidth="sm" sx={{ position: 'fixed', bottom: 0, left: 0, right: 0, padding: 0 }}>
             <Paper elevation={1} sx={{ borderRadius: "30px 30px 0px 0px", padding: '5px 0px' }}>
                 <BottomNavigation
-                    showLabels
                     value={value}
                     onChange={(event, newValue) => {
                         setValue(newValue);
-                        console.log(newValue);
                     }}
                     sx={{ borderRadius: "20px 20px 0px 0px", position: 'relative' }}
+                    showLabels={true}
                     >
                     <BottomNavigationAction onClick={() => changeUrlHandler("")} label="Home" icon={<HomeIcon />} />
                     <BottomNavigationAction onClick={() => changeUrlHandler("/statistic")} label="Statistics" icon={<LineAxisIcon />} />
