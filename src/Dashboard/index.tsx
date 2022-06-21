@@ -1,64 +1,117 @@
-import { Typography, Box, Paper } from "@mui/material";
+import React from "react";
+import moment from "moment";
+
+import { Typography, Box, MenuItem, Grid, Divider, Select, Paper, SelectChangeEvent, FormControl, Stack } from "@mui/material";
+// import { PieChart } from "recharts";
 import ReportChart from "./ReportChart";
+import OverallChart from "./OverallChart";
+import { color } from "@mui/system";
+import DailyChart from "./DailyChart";
 
 const data = [
-    {
-      name: 'Day 1',
-      expense: 24,
-      income: 40,
-    },
-    {
-      name: 'Day 2',
-      expense: 13,
-      income: 30,
-    },
-    {
-      name: 'Day 3',
-      expense: 48,
-      income: 20,
-    },
-    {
-      name: 'Day 4',
-      expense: 30,
-      income: 27,
-    },
-    {
-      name: 'Day 5',
-      expense: 30,
-      income: 27,
-    },
-    {
-      name: 'Day 6',
-      expense: 30,
-      income: 27,
-    },
-    {
-      name: 'Day 7',
-      expense: 30,
-      income: 27,
-    },
-  ];
+  {
+    name: 'Day 1',
+    expense: 24,
+    income: 40,
+  },
+  {
+    name: 'Day 2',
+    expense: 13,
+    income: 30,
+  },
+  {
+    name: 'Day 3',
+    expense: 48,
+    income: 20,
+  },
+  {
+    name: 'Day 4',
+    expense: 30,
+    income: 27,
+  },
+  {
+    name: 'Day 5',
+    expense: 30,
+    income: 27,
+  },
+  {
+    name: 'Day 6',
+    expense: 30,
+    income: 27,
+  },
+  {
+    name: 'Day 7',
+    expense: 30,
+    income: 27,
+  },
+];
+
+const MONTHS = ["Jan 2022", "Feb 2022", "Mar 2022", "Apr 2022", "Mei 2022"];
 
 const Dashboard = () => {
-    return (
+  
+  const [month, setMonth] = React.useState(MONTHS[MONTHS.length - 1]);
+
+  const monthChangeHandler = (event: SelectChangeEvent) => {
+    setMonth(event.target.value);
+  }
+
+  return (
         <>
-            <Box p={4}>
-                <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                    <Typography variant="h6" component="h1" fontWeight={700}>Report</Typography>
-                </Box>
-                <Box my={1} sx={{ display: "flex", justifyContent: "space-around", alignItems: "center" }}>
-                    <Typography variant="subtitle2" component="h3">Last Month</Typography>
-                    <Typography variant="subtitle2" component="h3">This Month</Typography>
-                </Box>
-                <Paper sx={{ backgroundColor: "#FFFFFF", padding: "20px", borderRadius: "20px" }}>
-                    <Typography variant="subtitle1" component="p" fontWeight={600} color="secondary">Net Income</Typography>
-                    <Typography variant="body1" component="p" fontWeight={700}>Rp1.000.000,00</Typography>
-                    <ReportChart data={data} />
-                </Paper>
+          <Box sx={{ backgroundColor: "#1F2169" }} minHeight="100vh">
+            <Grid container spacing={2} justifyContent="center" py={4}>
+              <Grid item xs={11}>
+                <Stack direction="row" alignItems="center" justifyContent="space-between">
+                  <Typography variant='h5' component='h1' color="white" fontWeight={700}>Dashboard</Typography>
+                  <FormControl size="small">
+                    <Select
+                      value={month}
+                      onChange={monthChangeHandler}
+                      displayEmpty
+                      inputProps={{ 'aria-label': 'Without label', style: { backgroundColor: "white" } }}
+                      sx={{ backgroundColor: "white" }}
+                    >
+                      {MONTHS.map((option) => (
+                        <MenuItem key={option} value={option}>
+                            {option}
+                        </MenuItem>
+                      ))}
+                    </Select>
+                  </FormControl>
+                </Stack>
+              </Grid>
+              <Grid item xs={11}>
+                <DailyChart />
+              </Grid>
+            </Grid>
+            <Box sx={{ backgroundColor: "#F2F2FD", borderRadius: "30px 30px 0px 0px" }}>
+              <Grid container spacing={2} justifyContent="center" pt={2} pb={4}>
+                <Grid item xs={11}>
+                  <Stack
+                    direction="row"
+                    divider={<Divider orientation="vertical" flexItem />}
+                    spacing={2}
+                    justifyContent="space-around"
+                  >
+                    <Box>
+                      <Typography variant="subtitle2" component="p" color="#949BB7" textAlign='center'>Income</Typography>
+                      <Typography variant="body1" component="p" fontWeight={600} textAlign='center'>Rp500,000</Typography>
+                      <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+                        <OverallChart />
+                      </Box>
+                    </Box>
+                    <Box>
+                      <Typography variant="subtitle2" component="p" color="#949BB7" textAlign='center'>Expense</Typography>
+                      <Typography variant="body1" component="p" fontWeight={600} textAlign='center'>Rp500,000</Typography>
+                      <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+                        <OverallChart />
+                      </Box>
+                    </Box>
+                  </Stack>
+                </Grid>
+              </Grid>
             </Box>
-            <Box sx={{ padding: "30px 20px 100px 20px" }}>
-                <Typography component="h2" variant="h5" fontWeight={700}>Transaction</Typography> 
-            </Box>
+          </Box>
         </>
     );
 }
