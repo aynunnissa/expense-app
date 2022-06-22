@@ -6,14 +6,32 @@ import { Notifications, ArrowDownward, ArrowUpward } from "@mui/icons-material";
 
 import HistoryItem from "./HistoryItem";
 import Card from '../UI/Card';
+import moment from 'moment';
 
 const History = () => {
 
-    const [type, setType] = React.useState<number>(0);
-    const expenses: readonly IExpense[] = useSelector((state: ExpenseState) => state.expenses, shallowEqual);
+    const [type, setType] = React.useState<number>(2);
+    const allExpenses: readonly IExpense[] = useSelector((state: ExpenseState) => state.expenses, shallowEqual);
+    const expenses = allExpenses.slice(0).reverse().slice(0, 31);
+    const todayTransactions = expenses.filter((transaction) => transaction.date === moment().format('YYYY-MM-DD'));
+    const yesterdayTransactions = expenses.filter((transaction) => transaction.date === moment().subtract(1, 'days').format('YYYY-MM-DD'));
+    const transactions = expenses.filter((transaction) => transaction.date !== moment().subtract(1, 'days').format('YYYY-MM-DD') && transaction.date !== moment().format('YYYY-MM-DD'));
+
+    const [filteredTodayTrans, setFilteredTodayTrans] = React.useState(todayTransactions);
+    const [filteredYestTrans, setFilteredYestTrans] = React.useState(yesterdayTransactions);
+    const [filteredTrans, setFilteredTrans] = React.useState(transactions);
 
     const handleTypeChange = (code: number) => {
         setType(code);
+        if (code === 2) {
+            setFilteredTodayTrans(todayTransactions);
+            setFilteredYestTrans(yesterdayTransactions);
+            setFilteredTrans(transactions);
+        } else if (code === 0 || code === 1) {
+            setFilteredTodayTrans(todayTransactions.filter((tr) => tr.type === code))
+            setFilteredYestTrans(yesterdayTransactions.filter((tr) => tr.type === code))
+            setFilteredTrans(transactions.filter((tr) => tr.type === code))
+        }
     }
 
     return(
@@ -24,23 +42,47 @@ const History = () => {
                 </Grid>
                 <Grid item xs={12}>
                     <Stack direction="row" spacing={1}>
-                        <Chip label="All" variant={type === 0 ? "filled" : "outlined"} color="primary" onClick={() => handleTypeChange(0)} />
-                        <Chip label="Income" variant={type === 1 ? "filled" : "outlined"} color="success" onClick={() => handleTypeChange(1)} />
-                        <Chip label="Expense" variant={type === 2 ? "filled" : "outlined"} color="error" onClick={() => handleTypeChange(2)} />
+                        <Chip label="All" variant={type === 2 ? "filled" : "outlined"} color="primary" onClick={() => handleTypeChange(2)} />
+                        <Chip label="Income" variant={type === 0 ? "filled" : "outlined"} color="success" onClick={() => handleTypeChange(0)} />
+                        <Chip label="Expense" variant={type === 1 ? "filled" : "outlined"} color="error" onClick={() => handleTypeChange(1)} />
                     </Stack>
                 </Grid>
                 <Grid item xs={12}>
                     <Typography variant="subtitle2" component="p" color="#949BB7" sx={{ paddingBottom: '5px' }}>TODAY</Typography>
-                    <Card><Typography variant="body2" component="p">No transactions</Typography></Card>
+                    {filteredTodayTrans.length <= 0 ? 
+                        <Card><Typography variant="body2" component="p">No transactions</Typography></Card> 
+                        : filteredTodayTrans.map((exp: IExpense) => (
+                            <HistoryItem 
+                                key={exp.id}
+                                exp={exp}
+                            />
+                        ))
+                    }
+                    
                 </Grid>
                 <Grid item xs={12}>
-                    <Typography variant="subtitle2" component="p" color="#949BB7">YESTERDAY</Typography>
-                    {expenses.map((exp: IExpense) => (
-                        <HistoryItem 
-                            key={exp.id}
-                            exp={exp}
-                        />
-                    ))}
+                    <Typography variant="subtitle2" component="p" color="#949BB7" sx={{ paddingBottom: '5px' }}>YESTERDAY</Typography>
+                    {filteredYestTrans.length <= 0 ? 
+                        <Card><Typography variant="body2" component="p">No transactions</Typography></Card> 
+                        : filteredYestTrans.map((exp: IExpense) => (
+                            <HistoryItem 
+                                key={exp.id}
+                                exp={exp}
+                            />
+                        ))
+                    }
+                </Grid>
+                <Grid item xs={12}>
+                    <Typography variant="subtitle2" component="p" color="#949BB7" sx={{ paddingBottom: '5px' }}>TRANSACTIONS</Typography>
+                    {filteredTrans.length <= 0 ? 
+                        <Card><Typography variant="body2" component="p">No transactions</Typography></Card> 
+                        : filteredTrans.map((exp: IExpense) => (
+                            <HistoryItem 
+                                key={exp.id}
+                                exp={exp}
+                            />
+                        ))
+                    }
                 </Grid>
             </Grid>
         </>
