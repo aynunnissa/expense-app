@@ -1,6 +1,6 @@
 import { Grid, Typography } from "@mui/material";
 import React from "react";
-import { useSelector, shallowEqual, useDispatch } from "react-redux"
+import { useDispatch } from "react-redux"
 import { Dispatch } from "redux";
 import { addExpense } from "../store/actionCreators";
 

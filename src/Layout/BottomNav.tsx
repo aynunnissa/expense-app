@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
-import { Paper, BottomNavigation, BottomNavigationAction, Container, Box } from "@mui/material";
-import { LineAxis as LineAxisIcon, History as HistoryIcon, StickyNote2 as StickyNote2Icon, Add as AddIcon, Home as HomeIcon, Person as PersonIcon } from "@mui/icons-material";
+import { Paper, BottomNavigation, BottomNavigationAction, Container } from "@mui/material";
+import { LineAxis as LineAxisIcon, History as HistoryIcon, Add as AddIcon, Home as HomeIcon } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { createTheme } from "@mui/material/styles";
 import { styled } from "@mui/material/styles";
 
 interface Nav {

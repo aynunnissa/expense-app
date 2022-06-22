@@ -1,8 +1,7 @@
 import React from 'react';
 
 import { useSelector, shallowEqual } from "react-redux";
-import { Box, Typography, Paper, Grid, Chip, Stack } from "@mui/material";
-import { Notifications, ArrowDownward, ArrowUpward } from "@mui/icons-material";
+import { Typography, Grid, Chip, Stack } from "@mui/material";
 
 import HistoryItem from "./HistoryItem";
 import Card from '../UI/Card';

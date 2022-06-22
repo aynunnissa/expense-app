@@ -1,7 +1,7 @@
 import React from 'react';
 import NumberFormat, { InputAttributes } from 'react-number-format';
 import { useNavigate } from "react-router-dom";
-import moment, { Moment } from 'moment';
+import moment from 'moment';
 
 import { Box, TextField, MenuItem, Stack, Button, Grid } from "@mui/material";
 
@@ -12,7 +12,6 @@ import LocalGroceryStoreIcon from '@mui/icons-material/LocalGroceryStore';
 import LocalMallIcon from '@mui/icons-material/LocalMall';
 import PaidIcon from '@mui/icons-material/Paid';
 import CardGiftcardIcon from '@mui/icons-material/CardGiftcard';
-import { Category } from '@mui/icons-material';
 
 type CategoryObj = {
   label: string,

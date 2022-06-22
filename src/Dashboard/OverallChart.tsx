@@ -1,5 +1,4 @@
-import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from 'recharts';
-import { Typography } from "@mui/material";
+import { PieChart, Pie, Cell, Tooltip } from 'recharts';
 import React from 'react';
 
 const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
