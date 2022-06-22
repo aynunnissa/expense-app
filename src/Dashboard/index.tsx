@@ -1,10 +1,10 @@
 import React from "react";
 import moment from "moment";
+import { useSelector, shallowEqual } from "react-redux";
 
 import { Typography, Box, MenuItem, Grid, Divider, Select, Paper, SelectChangeEvent, FormControl, Stack } from "@mui/material";
 // import { PieChart } from "recharts";
-import ReportChart from "./ReportChart";
-import OverallChart from "./OverallChart";
+import OverallCard from "./OverallCard";
 import { color } from "@mui/system";
 import DailyChart from "./DailyChart";
 
@@ -46,14 +46,22 @@ const data = [
   },
 ];
 
-const MONTHS = ["Jan 2022", "Feb 2022", "Mar 2022", "Apr 2022", "Mei 2022"];
-
 const Dashboard = () => {
   
-  const [month, setMonth] = React.useState(MONTHS[MONTHS.length - 1]);
+  const listMonth: string[] = useSelector((state: ExpenseState) => state.months, shallowEqual);
+  const expenses: IExpense[] = useSelector((state: ExpenseState) => state.expenses, shallowEqual);
+
+  const [month, setMonth] = React.useState(listMonth[listMonth.length - 1]);
+  const [filteredExpense, setFilteredExpense] = React.useState<IExpense[]>(expenses.filter((exp) => moment(exp.date).format("YYYY-MM") === month));
+  const [incomeData, setIncomeData] = React.useState<IExpense[]>(filteredExpense.filter((exp) => exp.type === 0));
+  const [expenseData, setExpenseData] = React.useState<IExpense[]>(filteredExpense.filter((exp) => exp.type === 1));
 
   const monthChangeHandler = (event: SelectChangeEvent) => {
     setMonth(event.target.value);
+    const filteredData: IExpense[] = expenses.filter((exp) => moment(exp.date).format("YYYY-MM") === event.target.value);
+    setFilteredExpense(filteredData);
+    setIncomeData(filteredData.filter((exp) => exp.type === 0));
+    setExpenseData(filteredData.filter((exp) => exp.type === 1));
   }
 
   return (
@@ -71,9 +79,9 @@ const Dashboard = () => {
                       inputProps={{ 'aria-label': 'Without label', style: { backgroundColor: "white" } }}
                       sx={{ backgroundColor: "white" }}
                     >
-                      {MONTHS.map((option) => (
+                      {listMonth.map((option) => (
                         <MenuItem key={option} value={option}>
-                            {option}
+                            {moment(option).format('MMM YYYY')}
                         </MenuItem>
                       ))}
                     </Select>
@@ -81,55 +89,28 @@ const Dashboard = () => {
                 </Stack>
               </Grid>
               <Grid item xs={11} sx={{ overflowX: 'auto', overflowY: 'hidden' }}>
-                <DailyChart />
+                <DailyChart expense={filteredExpense} />
               </Grid>
             </Grid>
             <Box sx={{ backgroundColor: "#F2F2FD", borderRadius: "30px 30px 0px 0px" }}>
               <Grid container spacing={2} justifyContent="center" pt={2} pb={4} columns={21}>
                 <Grid item sm={10} xs={21}>
-                  <Box>
-                    <Typography variant="subtitle2" component="p" color="#1F2169" textAlign='center'>Income</Typography>
-                    <Typography variant="body1" component="p" fontWeight={600} textAlign='center' color='#67A0AB'>Rp500,000</Typography>
-                    <Box sx={{ display: 'flex', justifyContent: 'center' }} mt={1}>
-                      <OverallChart />
-                    </Box>
-                  </Box>
+                  <OverallCard 
+                    type="Income"
+                    data={incomeData}
+                    color='#67A0AB'
+                  />
                 </Grid>
                 <Grid item sm={1} xs={0}>
                   <Divider orientation="vertical" variant="middle" sx={{ height: '100%' }}  flexItem />
                 </Grid>
                 <Grid item sm={10} xs={21}>
-                  <Box>
-                    <Typography variant="subtitle2" component="p" color="#1F2169" textAlign='center'>Expense</Typography>
-                    <Typography variant="body1" component="p" fontWeight={600} textAlign='center' color='#F54740'>Rp500,000</Typography>
-                    <Box sx={{ display: 'flex', justifyContent: 'center' }} mt={1}>
-                      <OverallChart />
-                    </Box>
-                  </Box>
+                  <OverallCard 
+                    type="Expense"
+                    data={expenseData}
+                    color='#F54740'
+                  />
                 </Grid>
-                {/* <Grid item xs={11}>
-                  <Stack
-                    direction="row"
-                    divider={<Divider orientation="vertical" flexItem />}
-                    spacing={2}
-                    justifyContent="space-around"
-                  >
-                    <Box>
-                      <Typography variant="subtitle2" component="p" color="#1F2169" textAlign='center'>Income</Typography>
-                      <Typography variant="body1" component="p" fontWeight={600} textAlign='center' color='#67A0AB'>Rp500,000</Typography>
-                      <Box sx={{ display: 'flex', justifyContent: 'center' }} mt={1}>
-                        <OverallChart />
-                      </Box>
-                    </Box>
-                    <Box>
-                      <Typography variant="subtitle2" component="p" color="#1F2169" textAlign='center'>Expense</Typography>
-                      <Typography variant="body1" component="p" fontWeight={600} textAlign='center' color='#F54740'>Rp500,000</Typography>
-                      <Box sx={{ display: 'flex', justifyContent: 'center' }} mt={1}>
-                        <OverallChart />
-                      </Box>
-                    </Box>
-                  </Stack>
-                </Grid> */}
               </Grid>
             </Box>
           </Box>

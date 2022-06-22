@@ -10,7 +10,8 @@ interface IExpense {
 type ExpenseState = {
     expenses: IExpense[],
     totalIncome: number,
-    totalExpense: number
+    totalExpense: number,
+    months: string[]
 }
 
 type ExpenseAction = {

@@ -1,3 +1,4 @@
+import moment from "moment";
 import * as actionTypes from "./actionTypes";
 
 const initialState = {
@@ -108,7 +109,8 @@ const initialState = {
         },
     ],
     totalIncome: 17500000,
-    totalExpense: -7878000
+    totalExpense: -7878000,
+    months: ["2022-02", "2022-04", "2022-05"]
 }
 
 const reducer = (
@@ -127,11 +129,18 @@ const reducer = (
             }
             const income = newExpense.type === 0 ? state.totalIncome + newExpense.price : state.totalIncome;
             const expense = newExpense.type === 0 ? state.totalExpense + newExpense.price : state.totalExpense;
+            const listMonth = [];
+            const date = moment(action.expense.date).format("YYYY-MM");
+            if (state.months.indexOf(date) < 0) {
+                listMonth.push(action.expense.date);
+            }
+
             return {
                 ...state,
                 expenses: state.expenses.concat(newExpense),
                 totalIncome: income,
-                totalExpense: expense 
+                totalExpense: expense,
+                months: state.months.concat(listMonth)
             }
     }
     return state;
