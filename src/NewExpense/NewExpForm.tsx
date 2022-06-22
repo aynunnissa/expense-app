@@ -9,30 +9,54 @@ import { Box, TextField, MenuItem, Stack, Button, Grid } from "@mui/material";
 import DirectionsBusFilledIcon from '@mui/icons-material/DirectionsBusFilled';
 import FastfoodIcon from '@mui/icons-material/Fastfood';
 import LocalGroceryStoreIcon from '@mui/icons-material/LocalGroceryStore';
-import DryCleaningIcon from '@mui/icons-material/DryCleaning';
+import LocalMallIcon from '@mui/icons-material/LocalMall';
+import PaidIcon from '@mui/icons-material/Paid';
+import CardGiftcardIcon from '@mui/icons-material/CardGiftcard';
+import { Category } from '@mui/icons-material';
 
-const CATEGORIES = [
-    {
-        value: 0,
-        label: "Transportation",
-        icon: <DirectionsBusFilledIcon />
-    },
-    {
-        value: 1,
-        label: "Snack",
-        icon: <FastfoodIcon />
-    },
-    {
-        value: 2,
-        label: "Grocery",
-        icon: <LocalGroceryStoreIcon />
-    },
-    {
-        value: 3,
-        label: "Clothes",
-        icon: <DryCleaningIcon />
-    },
-]
+type CategoryObj = {
+  label: string,
+  icon: React.ReactNode
+}
+
+interface ICategories {
+  [key: string]: CategoryObj;
+}
+
+interface ITypedCategories {
+  [key: number]: ICategories;
+}
+
+const categories: ITypedCategories = {
+  0: {
+      0: {
+          label: "Gaji Bulanan",
+          icon: <PaidIcon />
+      },
+      1: {
+          label: "Others",
+          icon: <CardGiftcardIcon />
+      }
+  },
+  1: {
+      0: {
+          label: "Transportation",
+          icon: <DirectionsBusFilledIcon />
+      },
+      1: {
+          label: "Snack",
+          icon: <FastfoodIcon />
+      },
+      2: {
+          label: "Grocery",
+          icon: <LocalGroceryStoreIcon />
+      },
+      3: {
+          label: "Others",
+          icon: <LocalMallIcon />
+      },  
+  }
+}
 
 const NumberFormatCustom = React.forwardRef<
   NumberFormat<InputAttributes>,
@@ -64,40 +88,62 @@ interface CustomProps {
     name: string;
 }
 
-export default function NewExpForm() {
+interface IProps {
+  submitData: (expense: IExpense | any) => void
+}
 
-    const [category, setCategory] = React.useState<number>(0);
-    const [price, setPrice] = React.useState<number>(0);
-    const [description, setDescription] = React.useState('');
-    const [date, setDate] = React.useState(moment().format("YYYY-MM-DD"));
+export default function NewExpForm({ submitData } : IProps) {
+  
+  const [type, setType] = React.useState<number>(0);
+  const [category, setCategory] = React.useState<number>(0);
+  const [listCategory, setListCategory] = React.useState<ICategories>(categories[0])
+  const [price, setPrice] = React.useState<number>(0);
+  const [description, setDescription] = React.useState('');
+  const [date, setDate] = React.useState(moment().format("YYYY-MM-DD"));
 
-    const navigate = useNavigate();
+  const navigate = useNavigate();
 
-    const categoryChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setCategory(Number(event.target.value));
-    }
+  const typeChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setType(Number(event.target.value));
+    setListCategory(categories[Number(event.target.value)]);
+  }
 
-    const priceChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setPrice(Number(event.target.value));
-    }
+  const categoryChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setCategory(Number(event.target.value));
+  }
 
-    const descriptionChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setDescription(event.target.value as string);
-    }
+  const priceChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setPrice(Number(event.target.value));
+  }
 
-    const dateChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
-      setDate(event.target.value);
-    }
+  const submitFormHandler = (event: React.FormEvent) => {
+    event.preventDefault();
+    const priceValue = type === 0 ? price : -price;
+    const expenseObj : IExpense | {} = {
+      date,
+      type,
+      category,
+      price: priceValue,
+      description
+    };
+    console.log(expenseObj);
+    submitData(expenseObj);
+    navigateHandler('/history');
+  }
 
-    const submitFormHandler = () => {
-      alert('submited');
-    }
+  const descriptionChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
+      setDescription(event.target.value as string);
+  }
 
-    const navigateHandler = (url: string) => {
-      navigate(url);
-    }
+  const dateChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setDate(event.target.value);
+  }
 
-    return (
+  const navigateHandler = (url: string) => {
+    navigate(url);
+  }
+
+  return (
     <Box
       component="form"
       noValidate
@@ -110,12 +156,12 @@ export default function NewExpForm() {
           id="outlined-select-currency"
           select
           label="Report Category"
-          value={0}
-          onChange={categoryChangeHandler}
+          value={type}
+          onChange={typeChangeHandler}
           helperText="Please select your report category"
         >
           <MenuItem key="income-0" value={0}>Income</MenuItem>
-          <MenuItem key="income-0" value={1}>Expense</MenuItem>
+          <MenuItem key="income-1" value={1}>Expense</MenuItem>
         </TextField>
         <TextField 
           fullWidth
@@ -130,14 +176,13 @@ export default function NewExpForm() {
           required
           id="outlined-select-currency"
           select
-          label="Expense Category"
+          label={`${category === 0 ? 'Income' : 'Expense'} Category`}
           value={category}
           onChange={categoryChangeHandler}
-          helperText="Please select your currency"
         >
-          {CATEGORIES.map((option) => (
-            <MenuItem key={option.value} value={option.value}>
-                <Box sx={{ display: 'flex', alignItems: 'center' }} gap={1}>{option.icon} {option.label}</Box>
+          {Object.keys(listCategory).map((option) => (
+            <MenuItem key={option} value={option}>
+                <Box sx={{ display: 'flex', alignItems: 'center' }} gap={1}>{listCategory[option].icon} {listCategory[option].label}</Box>
             </MenuItem>
           ))}
         </TextField>
@@ -148,7 +193,7 @@ export default function NewExpForm() {
           label="Price"
           value={price}
           onChange={priceChangeHandler}
-          helperText="Some important text"
+          helperText="Ex: 10,000"
           InputProps={{
             inputComponent: NumberFormatCustom as any,
           }}
@@ -160,17 +205,18 @@ export default function NewExpForm() {
           multiline
           maxRows={4}
           onChange={descriptionChangeHandler}
+          helperText="Type a short description about the income/expense"
           value={description}
         />
       </Stack>
       <Grid container spacing={2} mt={2}>
         <Grid item xs={12} sm={6} order={{ xs: 1, sm: 2}}>
-          <Button sx={{ width:'100%' }} variant='contained' onClick={submitFormHandler}>Add Expense</Button>
+          <Button sx={{ width:'100%' }} variant='contained' onClick={submitFormHandler}>Submit</Button>
         </Grid>
         <Grid item xs={12} sm={6} order={{ xs: 2, sm: 1}}>
           <Button sx={{ width:'100%' }} variant='outlined' onClick={() => navigateHandler('/')}>Cancel</Button>
         </Grid>
       </Grid>
     </Box>
-    );
+  );
 }

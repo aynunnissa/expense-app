@@ -6,7 +6,7 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import DirectionsBusFilledIcon from '@mui/icons-material/DirectionsBusFilled';
 import FastfoodIcon from '@mui/icons-material/Fastfood';
 import LocalGroceryStoreIcon from '@mui/icons-material/LocalGroceryStore';
-import DryCleaningIcon from '@mui/icons-material/DryCleaning';
+import LocalMallIcon from '@mui/icons-material/LocalMall';
 import PaidIcon from '@mui/icons-material/Paid';
 import CardGiftcardIcon from '@mui/icons-material/CardGiftcard';
 
@@ -53,7 +53,7 @@ const categories: ITypedCategories = {
         },
         3: {
             label: "Others",
-            icon: <DryCleaningIcon />
+            icon: <LocalMallIcon />
         },  
     }
 }

@@ -9,6 +9,7 @@ import HistoryItem from "../History/HistoryItem";
 const Home = () => {
 
     const expenses: readonly IExpense[] = useSelector((state: ExpenseState) => state.expenses, shallowEqual);
+    console.log(expenses);
     const totalIncome: number = useSelector((state: ExpenseState) => state.totalIncome, shallowEqual);
     const totalExpense: number = useSelector((state: ExpenseState) => state.totalExpense, shallowEqual);
 
@@ -47,7 +48,7 @@ const Home = () => {
                 <Grid item xs={12}>
                     <>
                         <Typography component="h6" variant="h6" fontWeight={600}>Recent Transactions</Typography>
-                        {expenses.slice(expenses.length - 8, expenses.length - 1).map((exp) => (
+                        {expenses.slice(expenses.length - 7, expenses.length).reverse().map((exp) => (
                             <HistoryItem 
                                 key={exp.id}
                                 exp={exp}

@@ -128,16 +128,18 @@ const reducer = (
                 description: action.expense.description
             }
             const income = newExpense.type === 0 ? state.totalIncome + newExpense.price : state.totalIncome;
-            const expense = newExpense.type === 0 ? state.totalExpense + newExpense.price : state.totalExpense;
+            const expense = newExpense.type === 1 ? state.totalExpense + newExpense.price : state.totalExpense;
             const listMonth = [];
             const date = moment(action.expense.date).format("YYYY-MM");
             if (state.months.indexOf(date) < 0) {
-                listMonth.push(action.expense.date);
+                listMonth.push(date);
             }
+
+            const updatedExpense = state.expenses.concat(newExpense).sort((a, b) => (a.date > b.date ? 1 : -1));
 
             return {
                 ...state,
-                expenses: state.expenses.concat(newExpense),
+                expenses: updatedExpense,
                 totalIncome: income,
                 totalExpense: expense,
                 months: state.months.concat(listMonth)
